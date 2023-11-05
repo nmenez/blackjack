@@ -2,7 +2,7 @@ from enum import Enum, auto
 from typing import List
 
 from card import Card
-
+from copy import deepcopy
 
 class Hand:
     def __init__(self, cards: List[Card] = None):
@@ -49,6 +49,12 @@ class Hand:
     def __len__(self):
         return len(self.cards)
 
+
+    def __getitem__(self, item):
+        return self.cards[item]
+
+    def __deepcopy__(self, memodict={}):
+        return Hand(cards=deepcopy(self.cards))
 
 class Action(Enum):
     hit = auto()

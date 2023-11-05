@@ -2,11 +2,13 @@ from player import BasicStrategyPlayer
 from card import Deck, Card
 from rules import Round
 import numpy as np
+import logging
+import sys
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 
 
-
-starting_bank_roll = int(2000/25)
+starting_bank_roll = int(500/25)
 player = BasicStrategyPlayer(starting_bank_roll, 1.)
 deck = Deck(6, observers=[player])
 deck.shuffle()
@@ -21,10 +23,12 @@ round = Round(player, deck, dealer_must_hit_at_soft_17=True)
 while (player.bankroll > 0) and (n<1e6):
     n += 1
     # print(f'round {n}')
+    logging.log(level=logging.INFO, msg=f'round {n}')
     bet = player.bet()
     winloss = round.play_round()
     # print(f'winloss {winloss}')
     player.bankroll += winloss
+    logging.log(level=logging.INFO, msg=f'bankroll: {player.bankroll}')
     # print(f'bankroll: {player.bankroll}')
     history_win_loss.append(winloss)
     history_bank_roll.append(player.bankroll)

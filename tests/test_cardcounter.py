@@ -51,6 +51,6 @@ class TestCardCounter(TestCase):
             Card(Suit.hearts, 3),
         ]
 
-        for _ in range(6):
+        for _, expected in zip(range(7), [0, -1, 0, 1, 1, 2]):
             deck.deal()
-            print(player.running_count, player.true_count())
+            self.assertEqual(player.running_count, expected )

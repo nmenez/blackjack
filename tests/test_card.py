@@ -63,3 +63,21 @@ class TestDeck(TestCase):
         deck.shuffle()
         for _ in range(52):
             deck.deal()
+
+    def test_deck_index(self):
+        deck = Deck(n=1)
+        card = deck[0]
+
+        self.assertEqual(card.value, 1)
+        self.assertEqual(card.suit, Suit.spades)
+        self.assertEqual(deck.index, 0 )
+
+    def test_pull_card(self):
+        card = Card.from_desc('ace of spades')
+        deck = Deck(n=1)
+
+        self.assertEqual(str(deck.cards[0]), 'ace of spades')
+        deck.pull_card(card)
+        self.assertEqual(str(deck.cards[0]), '2 spades')
+        self.assertEqual(len(deck), 51)
+

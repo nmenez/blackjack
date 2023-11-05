@@ -27,7 +27,7 @@ payout_history = []
 true_count_history = []
 
 player = BasicStrategyPlayer(100, 1.)
-n = int(100*1e6)
+n = int(2*1e6)
 deck = SuperEfficient(6, n*10, observers=[player])
 deck.shuffle()
 deck.burn()
@@ -35,8 +35,8 @@ round = Round(player, deck, dealer_must_hit_at_soft_17=True)
 
 
 for i  in range(int(n)):
-    if i % 100000 == 0:
-        print(i)
+    if i % (.1 * n) == 0:
+        print(i/n)
     payout_history.append(round.play_round())
     # true_count_history.append(player.true_count())
 
